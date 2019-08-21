@@ -1,0 +1,22 @@
+{% extends base.html %}
+
+{% block content %}
+
+<!-- TODO: change form action to be submit -->
+<form>
+    <div class="form-group">
+        <label for="firstName">First Name:</label>
+        <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name:</label>
+        <input type="text" class="form-control" id="lastName" placeholder="Enter last name">
+    </div>
+    <div class="form-group">
+        <label for="imageUrl">Image URL:</label>
+        <input type="text" class="form-control" id="imageUrl" placeholder="Provide image of this user">
+    </div>
+    <button type="submit" class="btn btn-success">Add</button>
+</form>
+
+{% endblock %}
