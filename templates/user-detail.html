@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="user-details">
+    <img src=`{{ user.image_url }}`> 
+    <h1> {{ user.first_name }} {{ user.last_name }}</h1>   
+    <button type="submit" class="btn btn-primary" id="edit">Edit</button>
+    <button type="submit" class="btn btn-danger" id="delete">Delete</button>
+</div>
+
+{% endblock %}
