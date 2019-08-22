@@ -1,7 +1,6 @@
 """Models for Blogly."""
 
 from flask_sqlalchemy import SQLAlchemy
-import datetime
 
 
 db = SQLAlchemy()
@@ -46,13 +45,14 @@ class Post(db.Model):
 
     content = db.Column(db.Text)
 
-    # created_at = db.Column(datetime.datetime.now())
+    created_at = db.Column(db.Date)
 
     user_id = db.Column(
         db.Integer,
         db.ForeignKey('users.id'))
 
     user = db.relationship('User', backref='posts')
+	# yes you need this eg for the route  /posts/<int:post_id>'
 
 
 	

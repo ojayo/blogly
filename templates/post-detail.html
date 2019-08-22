@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1> {{ post.title }} </h1>
+
+{{ post.content }}
+
+<p><em>By {{ post.user.first_name }} {{ post.user.last_name }}</em></p>
+
+<a class="btn btn-link" href="/users/{{ post.user_id }}" id="cancel" role="button" style="border: 1px blue solid">Cancel</a>
+<a class="btn btn-primary" href="/posts/{{ post.id }}/edit" id="cancel" role="button">Edit</a>
+
+<form action="/posts/{{ post.id }}/delete" method="POST" style="display: inline-block">
+    <button type="submit" class="btn btn-danger" id="delete">Delete</button>
+</form>
+
+{% endblock %}

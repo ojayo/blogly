@@ -6,11 +6,11 @@
     <form action="/posts/{{ post.id }}/edit" method="POST">
         <div class="form-group">
             <label for="Title">Title</label>
-            <input type="text" class="form-control" name="title" value="{{ title }">
+            <input type="text" class="form-control" name="title" value="{{ post.title }}">
         </div>
         <div class="form-group">
             <label for="content">Content</label>
-            <input type="text" class="form-control" name="content" value="{{ content }}">
+            <input type="text" class="form-control" name="content" value="{{ post.content }}">
         </div>
 
         <a class="btn btn-primary" href="/posts/{{ id }}" id="cancel" role="button">Cancel</a>
