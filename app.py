@@ -27,7 +27,9 @@ def home_page():
 def user_page():
     """ shows all users """
     
-    return render_template('users.html')
+    users = User.query.all()
+
+    return render_template('users.html', users=users)
 
 @app.route('/users/new', methods=["POST", "GET"])
 def handle_new_user():
@@ -59,18 +61,27 @@ def user_info(user_id):
     return render_template('user-detail.html', user=user)
 
 @app.route("/users/<int:user_id>/edit", methods=["POST", "GET"])
-def edit_user():
+def edit_user(user_id):
     """ edit user information """
 
-    if request.method == "GET":
-        return render_template('user-edit.html')
-    else: 
-        first_name = request.form['firstName']
-        last_name = request.form['lastName']
-        image_url = request.form['imageUrl']
+    user_info = User.query.get_or_404(user_id)
 
-        new_user_info = User(first_name=first_name, last_name=last_name, image_url=image_url)
-        db.session.add(new_user_info)
+    if request.method == "GET":
+        first_name = user_info.first_name
+        last_name = user_info.last_name
+        image_url = user_info.image_url
+
+        return render_template('user-edit.html', id=user_id, first_name=first_name, last_name=last_name, image_url=image_url)
+    else: 
+        first_name = request.form['first-name']
+        last_name = request.form['last-name']
+        image_url = request.form['image-url']
+
+        user_info.first_name = first_name
+        user_info.last_name = last_name
+        user_info.image_url = image_url
+        
+        db.session.add(user_info)
         db.session.commit()
 
         return redirect('/users')
