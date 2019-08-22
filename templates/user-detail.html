@@ -12,6 +12,14 @@
     </form>
     <!-- <a class="btn btn-danger" href="/users/{{ user.id }}/delete" id="edit" role="button" method="POST">Delete</a> -->
     <!-- <button type="submit" class="btn btn-danger" id="delete">Delete</button> -->
+
+    <h1>Posts</h1>
+    <ul>
+        {% for post in posts %} 
+        <li> <a href="/posts/{{ post.id }}">{{ post.title }}</a> </li>
+        {% endfor %}
+    </ul>
+    <a class="btn btn-primary" href="/users/{{ user.id }}/posts/new" role="button">Add Post</a>
 </div>
 
 {% endblock %}

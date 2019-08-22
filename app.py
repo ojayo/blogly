@@ -1,7 +1,7 @@
 """Blogly application."""
 
 from flask import Flask, request, render_template, redirect
-from models import db, connect_db, User
+from models import db, connect_db, User, Post
 from flask_debugtoolbar import DebugToolbarExtension
 
 app = Flask(__name__)
@@ -59,11 +59,11 @@ def user_info(user_id):
     """ displays info about the user """
 
     user = User.query.get_or_404(user_id)
-    # why can't we do user = User.query.get(1).all()
-    # User.query returns a query object
-    # you have to pick if you want one or all, can't do both
 
-    return render_template('user-detail.html', user=user)
+    post = Post.query.filter_by(user_id=user_id)
+    # Post.query returns a query object
+
+    return render_template('user-detail.html', user=user, posts=post)
 
 
 @app.route("/users/<int:user_id>/edit", methods=["POST", "GET"])
@@ -104,3 +104,26 @@ def delete_user(user_id):
     db.session.commit()
 
     return redirect('/users')
+
+@app.route('/users/<int:user_id>/posts/new', methods=["POST", "GET"])
+def handle_new_post(user_id):
+    """ process the add post """
+
+    user_info = User.query.get_or_404(user_id)
+
+    if request.method == "GET":
+        return render_template('post-new-form.html', user=user_info)
+
+    else:
+        title = request.form['title']
+        content = request.form['content']
+
+        new_post_info = Post(title=title,
+                             content=content, user_id=user_info.id)
+        db.session.add(new_post_info)
+        db.session.commit()
+
+        return redirect(f"/users/{ user_id }")
+        # input variables with single curly brace ( and make it an F string)
+
+@app.route('/')
