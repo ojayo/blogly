@@ -6,7 +6,12 @@
     <img src="{{ user.image_url }}"> 
     <h1> {{ user.first_name }} {{ user.last_name }}</h1>   
     <a class="btn btn-primary" href="/users/{{ user.id }}/edit" id="edit" role="button">Edit</a>
-    <button type="submit" class="btn btn-danger" id="delete">Delete</button>
+    
+    <form action="/users/{{ user.id }}/delete" method="POST" style="display: inline-block">
+        <button type="submit" class="btn btn-danger" id="delete">Delete</button>
+    </form>
+    <!-- <a class="btn btn-danger" href="/users/{{ user.id }}/delete" id="edit" role="button" method="POST">Delete</a> -->
+    <!-- <button type="submit" class="btn btn-danger" id="delete">Delete</button> -->
 </div>
 
 {% endblock %}
